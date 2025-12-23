@@ -91,9 +91,9 @@ function initGame()
     if(loadGame){
         createUnityInstance(document.querySelector("#unity-canvas"), {
             arguments: [],
-            dataUrl: "/build/WebGL.data.unityweb",
-            frameworkUrl: "/build/WebGL.framework.js.unityweb",
-            codeUrl: "/build/WebGL.wasm.unityweb",
+            dataUrl: "./build/WebGL.data.unityweb",
+            frameworkUrl: "./build/WebGL.framework.js.unityweb",
+            codeUrl: "./build/WebGL.wasm.unityweb",
             streamingAssetsUrl: "StreamingAssets",
             companyName: "DefaultCompany",
             productName: "CounterAttack",
@@ -115,7 +115,7 @@ function initGame()
 }
 
 async function loadCards(name) {
-    let res = await fetch('/assets/obj/cards.txt')
+    let res = await fetch('./assets/obj/cards.txt')
     let data = res.text();
     return data;
 }
@@ -127,7 +127,7 @@ function previewCards(index)
     var symbolIndex = cardArray[(index * 13) + 12];
 
     for (let i = 0; i < 6; i++) {
-        let destPath = "/assets/images/dot.png";
+        let destPath = "./assets/images/dot.png";
         let symbolIndex = cardArray[(index * 13) + i];
         let colorIndex = cardArray[(index * 13) + i + 6];
 
@@ -154,7 +154,7 @@ function previewCards(index)
             case 3: suffix = "black"; break;
         }
 
-        destPath = "/assets/images/" + prefix + "-" + suffix + ".png";
+        destPath = "./assets/images/" + prefix + "-" + suffix + ".png";
         document.getElementById('cs-n-'+i.toString()).src = destPath;
         document.getElementById('cs-f-'+i.toString()).src = destPath;
         
