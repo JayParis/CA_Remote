@@ -4,7 +4,10 @@ var siteLog;
 var toggleConsole, consoleVisible = false;
 var isRemote = false;
 
-var websocketURL = 'ws://192.168.1.240:7070';
+// var websocketURL = 'ws://192.168.1.240:7070';
+var websocketURL = 'ws://jayparis.com:3000';
+// var websocketURL = 'ws://jayparis.com';
+// var websocketURL = 'wss://188.166.147.54:3000';
 
 var cardArray = []
 
