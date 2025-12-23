@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CA_RemoteTestCanvas</title>
+    
+    <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover' />
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="Permissions-Policy" content="interest-cohort=()">
+
+    <link rel="stylesheet" type="text/css" href="./css/appstyles.css">
+    <link rel="manifest" href="./manifest.json">
+    <script src="/build/WebGL.loader.js"></script>
+</head>
+<body>
+    <div id="splash"></div>
+    <div class="fullscreen-cont-init" id="init-cont-id">
+        <div class="init-cont">
+            <div class="init-buttons-cont">
+                <button class="custom-btn" style="width: 340px; height: 200px; border-color: lightgreen; color: lightgreen;" onclick="window.btnMessage('init-game');">Load Game</button>
+                <button class="custom-btn" style="width: 340px; height: 200px;" onclick="window.btnMessage('init-remote');">Load Remote</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="fullscreen-cont-remote" id="remote-cont-id">
+        <!-- <div style="position: absolute; top: 0px; font-size: 40px; color: white; z-index: 6;">REMOTE CONT</div> -->
+        <div class="init-cont">
+            <div class="remote-window">
+
+                <div class="other-menu-cont" id="other-menu-id">
+                    <span>Team 1:</span>
+                    <input type="text" id="t1-name-1" placeholder="Team 1 Name 1" autocomplete="off" spellcheck="false">
+                    <input type="text" id="t1-name-2" placeholder="Team 1 Name 2" autocomplete="off" spellcheck="false">
+                    <input type="text" id="t1-name-3" placeholder="Team 1 Name 2" autocomplete="off" spellcheck="false">
+                    <input type="text" id="t1-name-4" placeholder="Team 1 Name 3" autocomplete="off" spellcheck="false">
+                    <span>Team 2:</span>
+                    <input type="text" id="t2-name-1" placeholder="Team 2 Name 1" autocomplete="off" spellcheck="false">
+                    <input type="text" id="t2-name-2" placeholder="Team 2 Name 2" autocomplete="off" spellcheck="false">
+                    <input type="text" id="t2-name-3" placeholder="Team 2 Name 2" autocomplete="off" spellcheck="false">
+                    <input type="text" id="t2-name-4" placeholder="Team 2 Name 3" autocomplete="off" spellcheck="false">
+                    <button class="custom-btn" style="background-color: #08b130; margin-top: 20px; height: 30px; width: 100% !important;" onclick="window.btnMessage('start-game');">Start Game</button>
+                    <button class="custom-btn" style="background-color: #b10808; margin-top: 8px; height: 30px; width: 100% !important;" onclick="window.btnMessage('reload-scene');">Reload Scene</button>
+                    
+                    <button class="custom-btn" style="margin-top: 8px; height: 30px; width: 100% !important;" onclick="window.btnMessage('toggle-draw-cards-graphic');">Toggle Draw Cards Graphic</button>
+                    <button class="custom-btn" style="margin-top: 8px; height: 30px; width: 100% !important;" onclick="window.btnMessage('skip-wild');">Skip Wild</button>
+                    <button class="custom-btn" style="margin-top: 8px; height: 30px; width: 100% !important;" onclick="window.btnMessage('toggle-console');">Toggle Console</button>
+                    <button class="custom-btn" style="margin-top: 8px; height: 30px; width: 100% !important;" onclick="window.btnMessage('toggle-player-receives-score');">Toggle Player Receives Score</button>
+
+                    <button class="custom-btn" style="margin-top: 8px; height: 30px; width: 100% !important;" onclick="window.btnMessage('close-other-menu');">Close Menu</button>
+                </div>
+
+                <div id="game-state-id">Game State: Setup</div>
+                <div class="card-preview-cont" id="card-preview-cont-id">
+                    <div class="card-mocks-cont">
+                        <button class="card-mock" onclick="window.btnMessage('choose-normal');">
+                            <img id="cs-n-0" class="card-mock-img" src="/assets/images/cross-black.png" alt="">
+                            <img id="cs-n-1" class="card-mock-img" src="/assets/images/cross-black.png" alt="">
+                            <img id="cs-n-2" class="card-mock-img" src="/assets/images/cross-black.png" alt="">
+                            <img id="cs-n-3" class="card-mock-img" src="/assets/images/cross-black.png" alt="">
+                            <img id="cs-n-4" class="card-mock-img" src="/assets/images/cross-black.png" alt="">
+                            <img id="cs-n-5" class="card-mock-img" src="/assets/images/cross-black.png" alt="">
+                        </button>
+                        <button class="card-mock" onclick="window.btnMessage('choose-flipped');">
+                            <img id="cs-f-5" class="card-mock-img" src="/assets/images/cross-black.png" alt="">
+                            <img id="cs-f-4" class="card-mock-img" src="/assets/images/cross-black.png" alt="">
+                            <img id="cs-f-3" class="card-mock-img" src="/assets/images/cross-black.png" alt="">
+                            <img id="cs-f-2" class="card-mock-img" src="/assets/images/cross-black.png" alt="">
+                            <img id="cs-f-1" class="card-mock-img" src="/assets/images/cross-black.png" alt="">
+                            <img id="cs-f-0" class="card-mock-img" src="/assets/images/cross-black.png" alt="">
+                        </button>
+                    </div>
+                    <div class="mock-card-cancel-cont">
+                        <div style="display: grid; place-items: center;">
+                            <div style="color: white;" id="card-number-id"># 12</div>
+                            <button class="custom-btn" style="width: 140px;" onclick="window.btnMessage('cancel-card-selection');">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-button-grid">
+                    <!-- <button id="card-btn-id" class="custom-card-btn" style="width: 35px !important; height: 65px !important;" onclick="window.btnMessage('submit-card-1');"><span>1</span></button> -->
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-1');"><span>1</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-2');"><span>2</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-3');"><span>3</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-4');"><span>4</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-5');"><span>5</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-6');"><span>6</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-7');"><span>7</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-8');"><span>8</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-9');"><span>9</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-10');"><span>10</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-11');"><span>11</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-12');"><span>12</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-13');"><span>13</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-14');"><span>14</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-15');"><span>15</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-16');"><span>16</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-17');"><span>17</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-18');"><span>18</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-19');"><span>19</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-20');"><span>20</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-21');"><span>21</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-22');"><span>22</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-23');"><span>23</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-24');"><span>24</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-25');"><span>25</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-26');"><span>26</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-27');"><span>27</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-28');"><span>28</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-29');"><span>29</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-30');"><span>30</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-31');"><span>31</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-32');"><span>32</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-33');"><span>33</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-34');"><span>34</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-35');"><span>35</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-36');"><span>36</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-37');"><span>37</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-38');"><span>38</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-39');"><span>39</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-40');"><span>40</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-41');"><span>41</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-42');"><span>42</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-43');"><span>43</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-44');"><span>44</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-45');"><span>45</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-46');"><span>46</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-47');"><span>47</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-48');"><span>48</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-49');"><span>49</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-50');"><span>50</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-51');"><span>51</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-52');"><span>52</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-53');"><span>53</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-54');"><span>54</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-55');"><span>55</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-56');"><span>56</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-57');"><span>57</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-58');"><span>58</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-59');"><span>59</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-60');"><span>60</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-61');"><span>61</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-62');"><span>62</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-63');"><span>63</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-64');"><span>64</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-65');"><span>65</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-66');"><span>66</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-67');"><span>67</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-68');"><span>68</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-69');"><span>69</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-70');"><span>70</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-71');"><span>71</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-72');"><span>72</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-73');"><span>73</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-74');"><span>74</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-75');"><span>75</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-76');"><span>76</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-77');"><span>77</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-78');"><span>78</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-79');"><span>79</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-80');"><span>80</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-81');"><span>81</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-82');"><span>82</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-83');"><span>83</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-84');"><span>84</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-85');"><span>85</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-86');"><span>86</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-87');"><span>87</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-88');"><span>88</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-89');"><span>89</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-90');"><span>90</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-91');"><span>91</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-92');"><span>92</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-93');"><span>93</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-94');"><span>94</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-95');"><span>95</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-96');"><span>96</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-97');"><span>97</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-98');"><span>98</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-99');"><span>99</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-100');"><span>100</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-101');"><span>101</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-102');"><span>102</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-103');"><span>103</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-104');"><span>104</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-105');"><span>105</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-106');"><span>106</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-107');"><span>107</span></button>
+<button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-108');"><span>108</span></button>
+
+
+                    
+                </div>
+                <div class="wilds-cont">
+                    <button class="custom-btn" style="flex-grow: 1; background-color: #FFD400;" onclick="window.btnMessage('wild-steal');">Steal</button>
+                    <button class="custom-btn" style="flex-grow: 1; background-color: #08b130;" onclick="window.btnMessage('wild-clear');">Clear</button>
+                    <button class="custom-btn" style="flex-grow: 1; background-color: #0031FF;" onclick="window.btnMessage('wild-swap');">Swap</button>
+                    <button class="custom-btn" style="flex-grow: 1; background-color: #FF0000;" onclick="window.btnMessage('wild-reset');">Reset</button>
+                </div>
+                <div class="wilds-cont">
+                    <button class="custom-btn" style="height: 40px; flex-grow: 1; background-color: #a50000;" onclick="window.btnMessage('auto-red');">RED</button>
+                    <button class="custom-btn" style="height: 40px; flex-grow: 1; background-color: #a08500;" onclick="window.btnMessage('auto-yellow');">YELLOW</button>
+                    <button class="custom-btn" style="height: 40px; flex-grow: 1; background-color: #0020a2;" onclick="window.btnMessage('auto-blue');">BLUE</button>
+                </div>
+
+                <button class="custom-btn" style="height: 30px; width: 100% !important;" onclick="window.btnMessage('open-other-menu');">Other</button>
+                <div class="sending-cont" id="sending-id">...</div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="fullscreen-cont-game" id="game-cont-id">
+        <!-- <div style="position: absolute; top: 0px; font-size: 40px; color: white; z-index: 6;">GAME CONT</div> -->
+        <div style="position: absolute; top: 100px; font-size: 40px; color: white; z-index: 6;" id="loading-number-id">GAME CONT</div>
+        <canvas id="unity-canvas"></canvas>
+    </div>
+
+    <!-- <div style="position: absolute; top: 0px; font-size: 40px;">Top Area</div> -->
+    <!-- <div style="position: absolute; bottom: 0px; font-size: 40px;">Bottom Area</div> -->
+
+    <div class="site-output-log noselect" id="site-output-id"></div>
+
+    <script src="/scripts//site.js"></script>
+</body>
+</html>
