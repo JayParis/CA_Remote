@@ -11,6 +11,7 @@
     <meta http-equiv="Permissions-Policy" content="interest-cohort=()">
 
     <link rel="stylesheet" type="text/css" href="./css/appstyles.css">
+    <link rel="stylesheet" href="./css/new-remote.css">
     <link rel="manifest" href="./manifest.json">
     <script src="./build/WebGL.loader.js"></script>
 </head>
@@ -19,14 +20,115 @@
     <div class="fullscreen-cont-init" id="init-cont-id">
         <div class="init-cont">
             <div class="init-buttons-cont">
-                <button class="custom-btn" style="width: 340px; height: 200px; border-color: lightgreen; color: lightgreen;" onclick="window.btnMessage('init-game');">Load Game</button>
+                <button class="custom-btn" style="width: 340px; height: 200px; border-color: rgb(0, 255, 0); color: rgb(0, 255, 0);" onclick="window.btnMessage('init-game');">Load Game</button>
                 <button class="custom-btn" style="width: 340px; height: 200px;" onclick="window.btnMessage('init-remote');">Load Remote</button>
             </div>
         </div>
     </div>
 
     <div class="fullscreen-cont-remote" id="remote-cont-id">
+
+        <div class="n-fullscreen-cont">
+        <div class="n-mobile-cont">
+            <div class="n-players-cont" style="display: none;" id="n-players-cont-id">
+                <button class="n-back-btn" id="n-back-id" onclick="window.nButtonMSG('nm-back')">Back</button>
+                <span class="n-settings-white-text">Team 1</span>
+                <input class="n-text-field" type="text" id="t1-name-1" placeholder="Team 1 Name 1" autocomplete="off" spellcheck="false">
+                <input class="n-text-field" type="text" id="t1-name-2" placeholder="Team 1 Name 2" autocomplete="off" spellcheck="false">
+                <input class="n-text-field" type="text" id="t1-name-3" placeholder="Team 1 Name 3" autocomplete="off" spellcheck="false">
+                <input class="n-text-field" type="text" id="t1-name-4" placeholder="Team 1 Name 4" autocomplete="off" spellcheck="false">
+                <span class="n-settings-white-text">Team 2</span>
+                <input class="n-text-field" type="text" id="t2-name-1" placeholder="Team 2 Name 1" autocomplete="off" spellcheck="false">
+                <input class="n-text-field" type="text" id="t2-name-2" placeholder="Team 2 Name 2" autocomplete="off" spellcheck="false">
+                <input class="n-text-field" type="text" id="t2-name-3" placeholder="Team 2 Name 3" autocomplete="off" spellcheck="false">
+                <input class="n-text-field" type="text" id="t2-name-4" placeholder="Team 2 Name 4" autocomplete="off" spellcheck="false">
+                <button class="n-settings-btm" style="margin-top: 20px; background-color: #10ca22;" onclick="window.nButtonMSG('nm-start-game')">Start Game</button>
+                <button class="n-settings-btm" style="background-color: #ff1717;" onclick="window.nButtonMSG('nm-reset-game')">Reset Scene</button>
+            </div>
+
+            <div class="n-players-cont" style="display: none;" id="n-settings-cont-id">
+                <button class="n-back-btn" id="n-back-id" onclick="window.nButtonMSG('nm-back')">Back</button>
+                <span class="n-settings-white-text">Settings</span>
+                <button class="n-settings-btm" onclick="window.nButtonMSG('nm-skip-turn')">Skip Turn</button>
+                <button class="n-settings-btm" onclick="window.nButtonMSG('nm-skip-wild')">Skip Wild</button>
+                <button class="n-settings-btm" onclick="window.nButtonMSG('nm-ws-blip')">WS Blip</button>
+                <button class="n-settings-btm" onclick="window.nButtonMSG('nm-toggle-console')">Toggle Console</button>
+                <button class="n-settings-btm" onclick="window.nButtonMSG('nm-toggle-prs')">Toggle Player Receives Score</button>
+                <div class="n-auto-colour-cont">
+                    <button class="n-wild-btn" style="background-color: #ff1717;" onclick="window.nButtonMSG('nm-auto-red')">Red</button>
+                    <button class="n-wild-btn" style="background-color: #e7e301;" onclick="window.nButtonMSG('nm-auto-yellow')">Yellow</button>
+                    <button class="n-wild-btn" style="background-color: #0212ff;" onclick="window.nButtonMSG('nm-auto-blue')">Blue</button>
+                </div>
+                <button class="n-settings-btm" onclick="window.nButtonMSG('nm-toggle-draw')">Toggle Draw Graphic</button>
+            </div>
+
+            <div class="n-players-cont" style="display: none;" id="n-choose-cont-id">
+                <button class="n-back-btn" id="n-back-id" onclick="window.nButtonMSG('nm-back')">Back</button>
+                <div style="height: 50px; border: clear 1px solid; width: 100%; display: grid; place-items: center; margin-top: 150px;">
+                    <span class="n-white-text" id="n-card-mock-id">Card 92</span>
+                </div>
+                <div class="n-card-compare-cont">
+                    <div class="n-card-mock" id="n-card-mock-left-id">
+                        <div class="n-card-mock-img-cont"><img id="n-cs-n-0" src="./assets/images/dot.png" alt=""></div>
+                        <div class="n-card-mock-img-cont"><img id="n-cs-n-1" src="./assets/images/dot.png" alt=""></div>
+                        <div class="n-card-mock-img-cont"><img id="n-cs-n-2" src="./assets/images/dot.png" alt=""></div>
+                        <div class="n-card-mock-img-cont"><img id="n-cs-n-3" src="./assets/images/dot.png" alt=""></div>
+                        <div class="n-card-mock-img-cont"><img id="n-cs-n-4" src="./assets/images/dot.png" alt=""></div>
+                        <div class="n-card-mock-img-cont"><img id="n-cs-n-5" src="./assets/images/dot.png" alt=""></div>
+                    </div>
+                    <div class="n-card-mock" id="n-card-mock-right-id">
+                        <div class="n-card-mock-img-cont"><img id="n-cs-f-5" src="./assets/images/dot.png" alt=""></div>
+                        <div class="n-card-mock-img-cont"><img id="n-cs-f-4" src="./assets/images/dot.png" alt=""></div>
+                        <div class="n-card-mock-img-cont"><img id="n-cs-f-3" src="./assets/images/dot.png" alt=""></div>
+                        <div class="n-card-mock-img-cont"><img id="n-cs-f-2" src="./assets/images/dot.png" alt=""></div>
+                        <div class="n-card-mock-img-cont"><img id="n-cs-f-1" src="./assets/images/dot.png" alt=""></div>
+                        <div class="n-card-mock-img-cont"><img id="n-cs-f-0" src="./assets/images/dot.png" alt=""></div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="height: 50px; border: clear 1px solid; width: 100%; display: grid; place-items: center;">
+                <div class="n-state-cont n-white-text">Setup State</div>
+            </div>
+            <div class="n-number-out-cont">
+                <div class="n-number-out" id="n-number-out-id"></div>
+            </div>
+            <div class="n-center-dial-cont">
+                <div class="n-dial-container">
+                    <button class="n-btn" onclick="window.nButtonMSG('nm-1')">1</button>
+                    <button class="n-btn" onclick="window.nButtonMSG('nm-2')">2</button>
+                    <button class="n-btn" onclick="window.nButtonMSG('nm-3')">3</button>
+                    <button class="n-btn" onclick="window.nButtonMSG('nm-4')">4</button>
+                    <button class="n-btn" onclick="window.nButtonMSG('nm-5')">5</button>
+                    <button class="n-btn" onclick="window.nButtonMSG('nm-6')">6</button>
+                    <button class="n-btn" onclick="window.nButtonMSG('nm-7')">7</button>
+                    <button class="n-btn" onclick="window.nButtonMSG('nm-8')">8</button>
+                    <button class="n-btn" onclick="window.nButtonMSG('nm-9')">9</button>
+                    
+                    <button class="n-btn" style="background-color: rgb(158, 0, 0);" onclick="window.nButtonMSG('nm-ac')">C</button>
+                    <button class="n-btn" onclick="window.nButtonMSG('nm-0')">0</button>
+                    <button class="n-btn" style="background-color: green;" onclick="window.nButtonMSG('nm-go')">GO</button>
+                    
+                    <button class="n-btn" style="border: black;" onclick="window.nButtonMSG('nm-players')">☺</button>
+                    <!-- <button class="n-btn" style="background-color: white; color: black;" onclick="window.nButtonMSG('nm-photo')">I</button> -->
+                    <input type="file" accept="image/*" capture="environment">
+                    <!-- <button class="n-btn" style="background-color: white; color: black;" onclick="window.nButtonMSG('nm-photo')">I</button> -->
+                    <button class="n-btn" style="border: black;" onclick="window.nButtonMSG('nm-settings')">⚙</button>
+                </div>
+            </div>
+            <div class="n-wild-cont">
+                <button class="n-wild-btn" style="background-color: #e7e301;" onclick="window.nButtonMSG('nm-steal')">Steal</button>
+                <button class="n-wild-btn" style="background-color: #10ca22;" onclick="window.nButtonMSG('nm-clear')">Clear</button>
+                <button class="n-wild-btn" style="background-color: #0212ff;" onclick="window.nButtonMSG('nm-swap')">Swap</button>
+                <button class="n-wild-btn" style="background-color: #ff1717;" onclick="window.nButtonMSG('nm-reset')">Reset</button>
+            </div>
+            
+        </div>
+    </div>
+
+
         <!-- <div style="position: absolute; top: 0px; font-size: 40px; color: white; z-index: 6;">REMOTE CONT</div> -->
+        <!--  
         <div class="init-cont">
             <div class="remote-window">
 
@@ -80,7 +182,6 @@
                     </div>
                 </div>
                 <div class="card-button-grid">
-                    <!-- <button id="card-btn-id" class="custom-card-btn" style="width: 35px !important; height: 65px !important;" onclick="window.btnMessage('submit-card-1');"><span>1</span></button> -->
 <button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-1');"><span>1</span></button>
 <button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-2');"><span>2</span></button>
 <button id="card-btn-id" class="custom-card-btn" style="width: 30px !important; height: 35px !important;" onclick="window.btnMessage('submit-card-3');"><span>3</span></button>
@@ -209,7 +310,7 @@
                 <div class="sending-cont" id="sending-id">...</div>
 
 
-            </div>
+            </div> -->
         </div>
     </div>
 
