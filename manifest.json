@@ -1,6 +1,6 @@
 {
-    "name": "CA RemoteTest",
-    "short_name": "CA RemoteTest",
+    "name": "CA RemoteLive",
+    "short_name": "CA RemoteLive",
     "start_url": "index.html",
     "icons":[
         {
